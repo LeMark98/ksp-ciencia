@@ -1,0 +1,95 @@
+:root {
+    --bg-color: #121824;
+    --card-bg: #1e2530;
+    --text-color: #ffffff; /* ¡CLAVE!: Todo el texto base ahora es blanco puro */
+    --border: #334155;
+    --accent-white: #ffffff;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 10px;
+}
+
+/* CONTENEDOR PARA MÓVIL: Permite deslizar la tabla si es muy ancha */
+.container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    background-color: var(--card-bg);
+    color: var(--text-color); /* Asegura texto blanco en toda la tabla */
+}
+
+th, td {
+    border: 1px solid var(--border);
+    padding: 8px;
+    text-align: center;
+    vertical-align: middle;
+    color: var(--text-color); /* Asegura texto blanco en las celdas */
+}
+
+/* ESTILOS DE ENCABEZADO Y ROTACIÓN */
+th {
+    background-color: #1e2530;
+    height: 240px;          /* Aumentado un poco para que quepan los nombres largos oficiales */
+    min-width: 45px;        
+    position: relative;     
+    padding: 0;
+}
+
+th span {
+    writing-mode: vertical-rl; 
+    /* transform: rotate(45deg);  */
+    display: inline-block;
+    font-weight: bold;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    color: var(--accent-white); /* Texto del experimento en blanco */
+    
+    /* Centrado absoluto en la celda */
+    position: absolute;
+    bottom: 15px;           
+    left: 50%;              
+    transform: translateX(-50%) rotate(180deg); 
+    white-space: nowrap;    /* Evita que el texto vertical se amontone */
+}
+
+/* Ajustes específicos para la primera celda (Esquina) */
+th:first-child {
+    height: auto;
+    position: static;      
+    padding: 10px;
+    min-width: 180px;       /* Le da buen espacio al nombre de los biomas en horizontal */
+}
+
+th:first-child span {
+    writing-mode: horizontal-tb;
+    transform: none;
+    position: static;      
+    color: var(--accent-white);
+}
+
+/* Filas alternas con un fondo sutilmente diferente para legibilidad, pero manteniendo letras blancas */
+tr:nth-child(even) {
+    background-color: #181f2a;
+}
+
+/* Estilo para los nombres de los biomas (primera columna) */
+td:first-child {
+    text-align: left;       /* Alinea los nombres de los lugares a la izquierda para leer mejor */
+    padding-left: 12px;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.3);  /* Checkboxes ligeramente más grandes, ideal para el dedo en el celular */
+    cursor: pointer;
+}
