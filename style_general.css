@@ -40,7 +40,7 @@ th, td {
 /* ESTILOS DE ENCABEZADO Y ROTACIÓN */
 th {
     background-color: #1e2530;
-    height: 240px;          /* Aumentado un poco para que quepan los nombres largos oficiales */
+    height: 140px;          /* Aumentado un poco para que quepan los nombres largos oficiales */
     min-width: 45px;        
     position: relative;     
     padding: 0;
