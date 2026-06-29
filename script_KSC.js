@@ -52,6 +52,8 @@ const filaEncabezado = document.createElement('tr');
 
 // La primera celda de arriba (Esquina superior izquierda)
 const celdaEsquina = document.createElement('th');
+celdaEsquina.classList.add('columna-fija');
+
 const spanEsquina = document.createElement('span'); // También le creamos su span
 spanEsquina.textContent = "Ubicación / Bioma";
 celdaEsquina.appendChild(spanEsquina);
@@ -66,7 +68,10 @@ experimentos.forEach(exp => {
     const span = document.createElement('span'); 
     
     // 3. Le metemos el texto AL SPAN (¡No al th!)
-    span.textContent = exp;                       
+    span.textContent = exp;
+    
+    // ASIGNAR LA CLASE AL CONTENEDOR DEL TEXTO (O al th, según prefieras para tu CSS)
+    span.classList.add('texto-girado');                    
     
     // 4. Metemos el span DENTRO del th
     th.appendChild(span);                         
@@ -88,9 +93,14 @@ biomas.forEach((bioma, bIdx) => {
     const fila = document.createElement('tr');
 
     // Creamos la primera celda de la fila con el nombre del bioma
+    // 1. Creas tu elemento normal
     const celdaBioma = document.createElement('td');
     celdaBioma.textContent = bioma;
-    celdaBioma.style.fontWeight = "bold"; // Para que resalte el nombre del lugar
+
+    // 2. Le asignas la clase que tú quieras (por ejemplo: 'columna-fija')
+    celdaBioma.classList.add('columna-fija');
+
+    // 3. Lo metes a la fila
     fila.appendChild(celdaBioma);
 
     // ==========================================

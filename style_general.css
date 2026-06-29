@@ -1,17 +1,18 @@
 :root {
     --bg-color: #121824;
+    --bg-color-2: #181f2a;
     --card-bg: #1e2530;
-    --text-color: #ffffff; /* ¡CLAVE!: Todo el texto base ahora es blanco puro */
     --border: #334155;
     --accent-white: #ffffff;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-color);
-    color: var(--text-color);
+    color: var(--accent-white);
     margin: 0;
-    padding: 10px;
+    padding: 0;
+    font-weight: 700;
 }
 
 /* CONTENEDOR PARA MÓVIL: Permite deslizar la tabla si es muy ancha */
@@ -19,14 +20,28 @@ body {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+
+        /* El motor de centrado absoluto horizontal y vertical */
+    display: flex;
+    flex-direction: column;   /* Alinea el título arriba y la tabla abajo */
+    justify-content: center;  /* Centrado vertical */
+    align-items: center;      /* Centrado horizontal */
+    min-height: 100vh;        /* Obliga al cuerpo a medir el 100% del alto de la pantalla */
+    box-sizing: border-box;
+
+    /* El truco mágico: añadimos 'safe' al centrado */
+    align-items: safe center; 
+    justify-content: safe center;
 }
 
 table {
-    border-collapse: collapse;
+    /* Cambiamos collapse por separate para que cada celda sea dueña de sus bordes */
+    border-collapse: separate; 
+    border-spacing: 0; /* Mantiene las celdas unidas sin huecos raros */
+    
     margin-top: 20px;
-    font-size: 0.85rem;
-    background-color: var(--card-bg);
-    color: var(--text-color); /* Asegura texto blanco en toda la tabla */
+    /* background-color: var(--card-bg); */
+    color: var(--accent-white); /* Asegura texto blanco en toda la tabla */
 }
 
 th, td {
@@ -34,62 +49,60 @@ th, td {
     padding: 8px;
     text-align: center;
     vertical-align: middle;
-    color: var(--text-color); /* Asegura texto blanco en las celdas */
+    color: var(--accent-white); /* Asegura texto blanco en las celdas */
 }
 
 /* ESTILOS DE ENCABEZADO Y ROTACIÓN */
 th {
-    background-color: #1e2530;
-    height: 140px;          /* Aumentado un poco para que quepan los nombres largos oficiales */
+    background-color: var(--card-bg);
+    height: 150px;          /* Aumentado un poco para que quepan los nombres largos oficiales */
     min-width: 45px;        
     position: relative;     
     padding: 0;
 }
 
-th span {
+/* Filas alternas con un fondo sutilmente diferente para legibilidad, pero manteniendo letras blancas */
+tr:nth-child(odd) {
+    background-color: var(--bg-color-2);
+}
+
+.texto-girado {
     writing-mode: vertical-rl; 
-    /* transform: rotate(45deg);  */
     display: inline-block;
-    font-weight: bold;
-    font-size: 0.8rem;
     letter-spacing: 0.5px;
-    color: var(--accent-white); /* Texto del experimento en blanco */
-    
-    /* Centrado absoluto en la celda */
-    position: absolute;
-    bottom: 15px;           
-    left: 50%;              
-    transform: translateX(-50%) rotate(180deg); 
+    color: var(--accent-white); 
     white-space: nowrap;    /* Evita que el texto vertical se amontone */
+    
+    /* Coordenadas al centro exacto de la celda de 140px */
+    position: absolute;
+    bottom: 0;             /* Lo baja al centro vertical (70px) */
+    left: 50%;              /* Lo alinea al centro horizontal */          
+    
+    padding: 12px;
+    /* 3. Centrado absoluto limpio en tus 140px */             
+    transform: translateX(-50%) rotate(180deg); /* Sin scale ni translateZ */
 }
 
-/* Ajustes específicos para la primera celda (Esquina) */
-th:first-child {
-    height: auto;
-    position: static;      
-    padding: 10px;
-    min-width: 180px;       /* Le da buen espacio al nombre de los biomas en horizontal */
+/* Configuración única y limpia para la celda de la esquina */
+.columna-fija {
+    position: sticky;               /* 1. La congela a la izquierda */
+    left: 0;                        /* 2. La pega al borde izquierdo */
+    z-index: 2;                     /* 3. La pone por encima de todo al deslizar */
+    background-color: var(--card-bg);      /* 4. Fondo sólido para que no se vea el texto pasar por detrás */
+    
+    text-align: left;       /* Alinea los nombres de los lugares a la izquierda para leer mejor */
+    height: auto;                   /* 5. Cancela la altura de las celdas rotadas */
+    padding: 12px;
+    min-width: 240px;
+     
 }
 
-th:first-child span {
-    writing-mode: horizontal-tb;
-    transform: none;
+.columna-fija span {
     position: static;      
     color: var(--accent-white);
 }
 
-/* Filas alternas con un fondo sutilmente diferente para legibilidad, pero manteniendo letras blancas */
-tr:nth-child(even) {
-    background-color: #181f2a;
-}
-
-/* Estilo para los nombres de los biomas (primera columna) */
-td:first-child {
-    text-align: left;       /* Alinea los nombres de los lugares a la izquierda para leer mejor */
-    padding-left: 12px;
-}
-
 input[type="checkbox"] {
-    transform: scale(1.3);  /* Checkboxes ligeramente más grandes, ideal para el dedo en el celular */
+    transform: scale(1.5);  /* Checkboxes ligeramente más grandes, ideal para el dedo en el celular */
     cursor: pointer;
 }
